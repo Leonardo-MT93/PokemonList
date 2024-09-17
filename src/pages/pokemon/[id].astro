@@ -1,27 +1,27 @@
 ---
 import type { GetStaticPaths } from "astro";
 import MainLayout from "@layouts/MainLayout.astro";
-import PokemonCard from "@components/pokemons/PokemonCard.astro";
 import type { PokemonListResponse } from "../../interfaces/pokemon-list-response";
+import PokemonCard from "@components/pokemons/PokemonCard.astro";
+
 
 export const getStaticPaths = (async() => {
-
+    
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
     const {results} = await resp.json() as PokemonListResponse;
-    
+
     return results.map(({name, url})=> ({
-        params: {name}, props: {name, url}
+        params: {id: url.split('/').filter(Boolean).pop()}, props: {name, url}
     }));
 }) satisfies GetStaticPaths;
 
-const {name} = Astro.params;
-const {url} = Astro.props;
-
-const id = url.split('/').filter(Boolean).pop();
+const {name, url} = Astro.props;
+const {id} = Astro.params;
 const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`
-const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+
 ---
-<MainLayout title={`Pokémon - #${id} - ${name}`} description={`Información sobre el pokemon ${name}`} image={imageSrc}>
+
+<MainLayout title="Hello">
     <section class="mt-10 flex flex-col mx-10 justify-center items-center">
         <div>
             <a href="/">Regresar</a>
@@ -33,7 +33,6 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
             Your browser does not support the audio element.
         </audio>
     </section>
-
 </MainLayout>
 
 <style>

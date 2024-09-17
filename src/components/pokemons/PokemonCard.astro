@@ -7,11 +7,15 @@ interface Props{
 
 const {name, url, isBig = false} = Astro.props;
 const id = url.split('/').filter(Boolean).pop();
-
+// const {id} = astro.params;
 //class={`rounded ${!isBig && 'border'}  flex flex-col justify-center items-center p-2`}
+
+//BUSQUEDA POR ID href={`/pokemon/${id}`}
+
+//BUSQUEDA POR NOMBRE href={`/pokemons/${name}`}
 ---
 
-<a href={`/pokemons/${name}`} class:list={[
+<a  href={`/pokemons/${name}`} class:list={[
     `rounded ${!isBig && 'border'}  flex flex-col justify-center items-center p-2`,
     {
         border: !isBig,
