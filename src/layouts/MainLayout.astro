@@ -1,5 +1,6 @@
 ---
-// import ViewTransitions from 'astro/components/ViewTransitions.astro';
+import ViewTransitions from 'astro/components/ViewTransitions.astro';
+import NavBar from '@components/pokemons/NavBar.astro';
 import {siteInfo} from 'src/constants/site-info'
 interface Props {
     title?: string;
@@ -23,15 +24,16 @@ const {title = siteInfo.title, description = siteInfo.description, image} = Astr
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={image} />
 		<title>{title}</title>
-        <!-- <ViewTransitions/> -->
-		<style>
+        <ViewTransitions/>
+		<!-- <style>
 			@view-transition {
 			  navigation: auto; /* enabled! */
 			}
-		  </style>
+		  </style> -->
 	</head>
-	<body class="bg-slate-800 text-slate-100 m-auto max-w-3xl">
-        <main class="mt-10 ">
+	<body class="bg-slate-800 text-slate-100  flex flex-col min-h-screen">
+        <NavBar/>
+		<main class="mt-10 mx-auto flex-grow w-full max-w-4xl px-4">
             <slot/>
         </main>
 		
